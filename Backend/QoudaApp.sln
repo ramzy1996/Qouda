@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A4E31D2A-BA54-42F8-99D2-7AA1FBD8D095}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QoudaApp.Application", "src\QoudaApp.Application\QoudaApp.Application.csproj", "{C53367F0-7B8B-4BAE-A08D-493E740D0B04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QoudaApp.Domain", "src\QoudaApp.Domain\QoudaApp.Domain.csproj", "{98E6A45E-7B40-44CE-93D6-0BEE47D7D0DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QoudaApp.Infrastructure", "src\QoudaApp.Infrastructure\QoudaApp.Infrastructure.csproj", "{51E6818C-DB00-41DD-86F6-B1E90FB386D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QoudaApp.Shared", "src\QoudaApp.Shared\QoudaApp.Shared.csproj", "{0858BF7B-9424-4FC5-8B67-DE74DA76B3F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QoudaApp.API", "src\QoudaApp.API\QoudaApp.API.csproj", "{0ABDF95F-9A55-49A4-A8D0-5241EB04F902}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C53367F0-7B8B-4BAE-A08D-493E740D0B04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C53367F0-7B8B-4BAE-A08D-493E740D0B04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C53367F0-7B8B-4BAE-A08D-493E740D0B04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C53367F0-7B8B-4BAE-A08D-493E740D0B04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98E6A45E-7B40-44CE-93D6-0BEE47D7D0DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98E6A45E-7B40-44CE-93D6-0BEE47D7D0DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98E6A45E-7B40-44CE-93D6-0BEE47D7D0DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98E6A45E-7B40-44CE-93D6-0BEE47D7D0DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51E6818C-DB00-41DD-86F6-B1E90FB386D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51E6818C-DB00-41DD-86F6-B1E90FB386D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51E6818C-DB00-41DD-86F6-B1E90FB386D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51E6818C-DB00-41DD-86F6-B1E90FB386D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0858BF7B-9424-4FC5-8B67-DE74DA76B3F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0858BF7B-9424-4FC5-8B67-DE74DA76B3F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0858BF7B-9424-4FC5-8B67-DE74DA76B3F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0858BF7B-9424-4FC5-8B67-DE74DA76B3F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0ABDF95F-9A55-49A4-A8D0-5241EB04F902}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ABDF95F-9A55-49A4-A8D0-5241EB04F902}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ABDF95F-9A55-49A4-A8D0-5241EB04F902}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ABDF95F-9A55-49A4-A8D0-5241EB04F902}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C53367F0-7B8B-4BAE-A08D-493E740D0B04} = {A4E31D2A-BA54-42F8-99D2-7AA1FBD8D095}
+		{98E6A45E-7B40-44CE-93D6-0BEE47D7D0DF} = {A4E31D2A-BA54-42F8-99D2-7AA1FBD8D095}
+		{51E6818C-DB00-41DD-86F6-B1E90FB386D6} = {A4E31D2A-BA54-42F8-99D2-7AA1FBD8D095}
+		{0858BF7B-9424-4FC5-8B67-DE74DA76B3F6} = {A4E31D2A-BA54-42F8-99D2-7AA1FBD8D095}
+		{0ABDF95F-9A55-49A4-A8D0-5241EB04F902} = {A4E31D2A-BA54-42F8-99D2-7AA1FBD8D095}
+	EndGlobalSection
+EndGlobal

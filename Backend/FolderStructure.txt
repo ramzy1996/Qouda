@@ -1,0 +1,69 @@
+OrderManagement.sln
+|
+├── OrderManagement.API (API Layer)
+│   ├── Controllers/
+│   │   ├── OrderController.cs
+│   ├── Middlewares/
+│   │   ├── ExceptionMiddleware.cs
+│   ├── Extensions/
+│   │   ├── ServiceCollectionExtensions.cs
+│   ├── appsettings.json
+│   │   ├── appsettings.Development.json
+│   │   ├── appsettings.Local.json
+│   ├── Program.cs
+|
+├── OrderManagement.Application (Application Layer)
+│   ├── Features/
+│   │   ├── Orders
+│   │   │   ├── Commands
+│   │   │   │   ├── CreateOrderCommand.cs
+│   │   │   │   ├── UpdateOrderCommand.cs
+│   │   │   ├── Queries
+│   │   │   │   ├── GetOrderByIdQuery.cs
+│   │   │   │   ├── GetOrdersQuery.cs
+│   │   │   ├── Handlers
+│   │   │   │   ├── OrderCommandHandler.cs
+│   │   │   │   ├── OrderQueryHandler.cs
+│   ├── Services/
+│   │   ├── OrderService.cs
+|
+├── OrderManagement.Domain (Domain Layer)
+│   ├── DTOs/
+│   │   ├── OrderDto.cs
+│   ├── Entities/
+│   │   ├── Common
+│   │   │   ├── BaseEntity.cs
+│   │   ├── Order.cs
+│   ├── Enums/
+│   │   ├── OrderStatus.cs
+│   ├── Events/
+│   │   ├── Common
+│   │   │   ├── DomainEvent.cs
+│   ├── Interfaces/
+│   │   ├── Common
+│   │   │   ├── IAggregateRoot.cs
+│   │   │   ├── IDomainEvent.cs
+│   │   │   ├── IEntity.cs
+│   │   ├── IServices
+│   │   │   ├── IOrderService.cs
+│   │   ├── IRepositories
+│   │   │   ├── IOrderRepository.cs
+|
+├── OrderManagement.Infrastructure (Infrastructure Layer)
+│   ├── Persistence/
+│   │   ├── DatabaseHelper.cs
+│   ├── Repositories/
+│   │   ├── Common
+│   │   │   ├── BaseRepository.cs
+│   │   ├── OrderRepository.cs
+│   ├── Configurations/
+│   │   ├── DbConfig.cs
+│   ├── Security/
+│   │   ├── EncryptionHelper.cs
+|
+├── OrderManagement.Shared (Shared Layer)
+│   ├── Helpers/
+│   │   ├── DateTimeHelper.cs
+│   │   ├── ResponseWrapper.cs
+│   ├── Logging/
+│   │   ├── Logger.cs
