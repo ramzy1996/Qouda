@@ -3,19 +3,20 @@ using Microsoft.Extensions.Logging;
 using QoudaApp.Application.Features.Queries.ExcelData;
 using QoudaApp.Domain.DTOs;
 using QoudaApp.Domain.Interfaces;
+using QoudaApp.Infrastructure.Services.Common;
 
 namespace QoudaApp.Application.Features.Handlers.ExcelData;
 
 public sealed class ListExcelDataHandler(IExcelDataService excelService, ILogger<ListExcelDataHandler> logger) :
-        IRequestHandler<GetExcelDataQuery, List<ExcelDataDto>>
+        IRequestHandler<GetExcelDataQuery, PagedList<ExcelDataDto>>
 {
-    public async Task<List<ExcelDataDto>> Handle(GetExcelDataQuery request, CancellationToken cancellationToken)
+    public async Task<PagedList<ExcelDataDto>> Handle(GetExcelDataQuery request, CancellationToken cancellationToken)
     {
         try
         {
             var excelData = await excelService.GetAllAsync();
 
-            return excelData.Select(excel => new ExcelDataDto
+            var response = excelData.Select(excel => new ExcelDataDto
             {
                 Id = excel.Id,
                 FirstName = excel.FirstName,
@@ -23,6 +24,7 @@ public sealed class ListExcelDataHandler(IExcelDataService excelService, ILogger
                 Email = excel.Email,
                 PhoneNumber = excel.PhoneNumber
             }).ToList();
+            return new PagedList<ExcelDataDto>(response, 1, 10, 100);
         }
         catch (Exception ex)
         {

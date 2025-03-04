@@ -6,7 +6,7 @@ using QoudaApp.Application.Features.Queries.ExcelData;
 namespace QoudaApp.API.Controllers.ExcelData;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/[controller]/[action]")]
 public class ExcelDataController(ISender mediator) : ControllerBase
 {
     [HttpPost]
@@ -17,7 +17,7 @@ public class ExcelDataController(ISender mediator) : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllExcelData()
+    public async Task<IActionResult> GetAll()
     {
         var query = new GetExcelDataQuery();
         var excelData = await mediator.Send(query);

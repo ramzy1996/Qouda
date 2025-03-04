@@ -12,6 +12,7 @@ builder.Services.AddSwaggerGen();
 
 // Add application services
 builder.AddApplicationServices();
+builder.AddCoreServices();
 
 // add database services
 builder.AddDatabaseServices();
@@ -30,8 +31,11 @@ if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Local"))
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("AllowQoudaOrigins");
 
 app.UseMiddleware<ExceptionMiddleware>();
+//app.UseMiddleware<ResponseWrapperMiddleware>();
+app.UseMiddleware<SuccessResponseMiddleware>();
 //app.UseRouting();
 
 //app.UseHttpsRedirection();
