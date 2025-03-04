@@ -6,6 +6,7 @@ import RootLayout from '@/components/Molecules/Layout/RootLayout';
 import Loading from '@/components/Molecules/Loading/Loading';
 import NotFound from '@/components/Molecules/NotFound/NotFound';
 import { Provider } from '@/components/ui/provider';
+import { Toaster } from '@/components/ui/toaster';
 
 import { routes } from './routes';
 
@@ -32,6 +33,7 @@ export const AppRouter = () => {
       <Suspense fallback={<Loading />}>
         <Provider>
           <RouterProvider router={router} />
+          <Toaster />
         </Provider>
       </Suspense>
     </QueryClientProvider>

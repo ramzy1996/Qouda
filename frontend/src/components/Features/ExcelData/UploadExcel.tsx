@@ -7,6 +7,7 @@ import {
   FileUploadList,
   FileUploadRoot,
 } from '@/components/ui/file-upload';
+import { toaster } from '@/components/ui/toaster';
 import { useUploadExcel } from '@/hooks/Excel/useUploadExcel';
 
 const UploadExcel: React.FC = () => {
@@ -15,10 +16,16 @@ const UploadExcel: React.FC = () => {
   const mutation = useUploadExcel({
     mutationConfig: {
       onSuccess: (data) => {
-        console.log(data);
-        // alert(data?.data?.message || 'Upload successful!');
+        toaster.success({
+          title: 'Upload successful',
+          description: data.data.message,
+        });
       },
       onError: (error) => {
+        toaster.error({
+          title: 'Upload failed',
+          description: error.message,
+        });
         alert(`Error: ${(error as any)?.message || 'Upload failed'}`);
       },
     },
@@ -33,7 +40,13 @@ const UploadExcel: React.FC = () => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     if (!file) {
-      alert('Please select a file first.');
+      toaster.create({
+        title: 'Please select a file',
+        description: 'Please select a file first.',
+        type: 'warning',
+        removeDelay: 500,
+      });
+      //   alert(`Error: Please select a file first.`);
       return;
     }
 
