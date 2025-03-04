@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using QoudaApp.Application.Features.Commands.ExcelData;
 using QoudaApp.Application.Features.Queries.ExcelData;
+using QoudaApp.Shared.Helpers;
 
 namespace QoudaApp.API.Controllers.ExcelData;
 
@@ -17,9 +18,9 @@ public class ExcelDataController(ISender mediator) : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] PaginationPayload payload)
     {
-        var query = new GetExcelDataQuery();
+        var query = new GetExcelDataQuery(payload);
         var excelData = await mediator.Send(query);
         return Ok(excelData);
     }

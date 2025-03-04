@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { FiDownloadCloud } from 'react-icons/fi';
 import { IoSaveOutline } from 'react-icons/io5';
 import { Button, HStack } from '@chakra-ui/react';
+import saveAs from 'file-saver';
+import * as XLSX from 'xlsx';
 
 import {
   FileUploadDropzone,
@@ -9,7 +12,6 @@ import {
 } from '@/components/ui/file-upload';
 import { toaster } from '@/components/ui/toaster';
 import { useUploadExcel } from '@/hooks/Excel/useUploadExcel';
-
 const UploadExcel: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
 
@@ -53,6 +55,24 @@ const UploadExcel: React.FC = () => {
     mutation.mutate({ file });
   };
 
+  const handleDownload = () => {
+    // Define headers and sample data
+    const headers = [['FirstName', 'LastName', 'Email', 'PhoneNumber']];
+
+    // Create a new worksheet
+    const ws = XLSX.utils.aoa_to_sheet([...headers, []]);
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const dataBlob = new Blob([excelBuffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+
+    saveAs(dataBlob, 'Template.xlsx');
+  };
+
   return (
     <div className="w-full">
       {/* <input type="file" onChange={handleFileChange} accept=".xlsx, .xls" /> */}
@@ -72,18 +92,32 @@ const UploadExcel: React.FC = () => {
         <FileUploadList />
       </FileUploadRoot>
 
-      <HStack className="m-5">
-        <Button
-          colorPalette="teal"
-          className="bg-blue-500 p-3 w-[200px]"
-          variant="solid"
-          loading={mutation.isPending}
-          onClick={handleSubmit}
-        >
-          <IoSaveOutline />
-          {mutation.isPending ? 'Uploading...' : 'Upload Excel'}
-        </Button>
-      </HStack>
+      <div className="flex ">
+        <HStack className="m-5">
+          <Button
+            colorPalette="teal"
+            className="bg-blue-500 p-3 w-[200px]"
+            variant="solid"
+            loading={mutation.isPending}
+            onClick={handleSubmit}
+          >
+            <IoSaveOutline />
+            {mutation.isPending ? 'Uploading...' : 'Upload Excel'}
+          </Button>
+        </HStack>
+
+        <HStack className="m-5">
+          <Button
+            colorPalette="teal"
+            className="bg-gray-500 p-3 w-[200px]"
+            variant="solid"
+            onClick={handleDownload}
+          >
+            <FiDownloadCloud />
+            Download Template
+          </Button>
+        </HStack>
+      </div>
 
       {/* <button type="submit" disabled={mutation.isPending}>
         {mutation.isPending ? 'Uploading...' : 'Upload Excel'}

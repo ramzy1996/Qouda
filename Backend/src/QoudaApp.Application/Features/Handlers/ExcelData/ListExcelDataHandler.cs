@@ -14,9 +14,9 @@ public sealed class ListExcelDataHandler(IExcelDataService excelService, ILogger
     {
         try
         {
-            var excelData = await excelService.GetAllAsync();
+            var data = await excelService.GetAllAsync(request.Payload);
 
-            var response = excelData.Select(excel => new ExcelDataDto
+            var response = data.ExcelUploads.Select(excel => new ExcelDataDto
             {
                 Id = excel.Id,
                 FirstName = excel.FirstName,
@@ -24,7 +24,7 @@ public sealed class ListExcelDataHandler(IExcelDataService excelService, ILogger
                 Email = excel.Email,
                 PhoneNumber = excel.PhoneNumber
             }).ToList();
-            return new PagedList<ExcelDataDto>(response, 1, 10, 100);
+            return new PagedList<ExcelDataDto>(response, request.Payload.PageNumber, request.Payload.PageSize, data.TotalCount);
         }
         catch (Exception ex)
         {
