@@ -1,19 +1,46 @@
-import { Heading, Stack, Table } from '@chakra-ui/react';
+import React, { useEffect } from 'react';
+import {
+  createListCollection,
+  Flex,
+  Heading,
+  HStack,
+  Stack,
+  Table,
+} from '@chakra-ui/react';
 
+import {
+  PaginationItems,
+  PaginationNextTrigger,
+  PaginationPrevTrigger,
+  PaginationRoot,
+} from '@/components/ui/pagination';
+import {
+  SelectContent,
+  SelectItem,
+  SelectRoot,
+  SelectTrigger,
+  SelectValueText,
+} from '@/components/ui/select';
 import { useFetchExcelList } from '@/hooks/Excel/useFetchExcelList';
 import { TPaginationQueryParams } from '@/types/api';
 
-interface ExcelListProps {
-  initialParams?: TPaginationQueryParams;
-}
+const ExcelList = () => {
+  const initialParams = {
+    pageNumber: 1,
+    pageSize: 10,
+  };
 
-const ExcelList: React.FC<ExcelListProps> = ({ initialParams }) => {
-  const { data, isLoading, isError, error } = useFetchExcelList({
-    params: initialParams || { pageNumber: 1, pageSize: 10 },
+  const [pagination, setPagination] =
+    React.useState<TPaginationQueryParams>(initialParams);
+
+  const { data, refetch } = useFetchExcelList({
+    params: pagination,
   });
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error: {(error as any)?.message}</div>;
+  useEffect(() => {
+    refetch();
+  }, [pagination, refetch]);
+
   const excelData = data || {
     items: [],
     pageNumber: 1,
@@ -23,16 +50,27 @@ const ExcelList: React.FC<ExcelListProps> = ({ initialParams }) => {
   };
   console.log(excelData);
 
+  const handlePageChange = (pageNumber: number) => {
+    setPagination((prevPagination) => ({ ...prevPagination, pageNumber }));
+  };
+
+  const handlePageSizeChange = (pageSize: number) => {
+    setPagination((prevPagination) => ({ ...prevPagination, pageSize }));
+  };
+
+  const pageSizes = createListCollection({
+    items: [
+      { label: '10', value: '10' },
+      { label: '20', value: '20' },
+      { label: '50', value: '50' },
+    ],
+  });
+
   return (
     <Stack width="full" gap="5">
       <Heading size="xl">Excel Data</Heading>
-      <Table.ScrollArea
-        borderWidth="1px"
-        rounded="md"
-        height="200px"
-        className="bg-gray-500 text-black"
-      >
-        <Table.Root size="sm" variant="outline" stickyHeader>
+      <Table.ScrollArea borderWidth="1px" rounded="md" height="200px">
+        <Table.Root size="sm" stickyHeader interactive>
           <Table.Header>
             <Table.Row>
               <Table.ColumnHeader>First Name</Table.ColumnHeader>
@@ -43,7 +81,7 @@ const ExcelList: React.FC<ExcelListProps> = ({ initialParams }) => {
               </Table.ColumnHeader>
             </Table.Row>
           </Table.Header>
-          <Table.Body>
+          <Table.Body colorPalette="gray">
             {excelData.items.map((item) => (
               <Table.Row key={item.id}>
                 <Table.Cell>{item.firstName}</Table.Cell>
@@ -55,26 +93,64 @@ const ExcelList: React.FC<ExcelListProps> = ({ initialParams }) => {
           </Table.Body>
         </Table.Root>
       </Table.ScrollArea>
-
-      {/* <PaginationRoot count={excelData.items.length * 5} pageSize={5} page={1}>
-        <HStack wrap="wrap">
-          <PaginationPrevTrigger
-            onClick={() => {
-              console.log('Previous');
-            }}
-          />
-          <PaginationItems
-            onClick={(e) => {
-              console.log(e);
-            }}
-          />
-          <PaginationNextTrigger
-            onClick={() => {
-              console.log('Next');
-            }}
-          />
-        </HStack>
-      </PaginationRoot> */}
+      <Flex justifyContent="space-between">
+        <PaginationRoot
+          count={excelData.totalCount}
+          pageSize={pagination.pageSize}
+          page={pagination.pageNumber}
+          defaultPage={1}
+          variant="solid"
+          onPageChange={(info) => {
+            console.log(info);
+            setPagination((prevPagination) => ({
+              ...prevPagination,
+              pageNumber: info.page,
+              pageSize: info.pageSize,
+            }));
+          }}
+        >
+          <HStack wrap="wrap">
+            <PaginationPrevTrigger
+              onChange={() =>
+                handlePageChange(
+                  pagination.pageNumber ?? initialParams.pageNumber - 1,
+                )
+              }
+              disabled={pagination.pageNumber === 1}
+            />
+            <PaginationItems />
+            <PaginationNextTrigger
+              onChange={() =>
+                handlePageChange(
+                  pagination.pageNumber ?? initialParams.pageNumber + 1,
+                )
+              }
+              disabled={(pagination.pageNumber ?? 1) === excelData.totalPages}
+            />
+          </HStack>
+        </PaginationRoot>
+        <SelectRoot
+          collection={pageSizes}
+          size="sm"
+          width="50px"
+          defaultValue={[pageSizes.items[0].value.toString()]}
+          onValueChange={(e: any) => {
+            console.log(e);
+            handlePageSizeChange(parseInt(e.value));
+          }}
+        >
+          <SelectTrigger>
+            <SelectValueText />
+          </SelectTrigger>
+          <SelectContent>
+            {pageSizes.items.map((size) => (
+              <SelectItem item={size} key={size.value}>
+                {size.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </SelectRoot>
+      </Flex>
     </Stack>
   );
 };

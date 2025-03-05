@@ -1,10 +1,17 @@
+import { Flex, Image } from '@chakra-ui/react';
+
 import { spinner } from '@/constant/Icons';
 
 const Loading = () => {
   return (
-    <div className="flex items-center justify-center w-full h-full">
-      <img src={spinner} alt="" />
-    </div>
+    <Flex
+      alignItems="center"
+      justifyContent="center"
+      width="full"
+      height="full"
+    >
+      <Image src={spinner} alt="Loading" />
+    </Flex>
   );
 };
 

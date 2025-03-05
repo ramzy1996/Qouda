@@ -1,5 +1,5 @@
 export interface INavBar {
   label: string;
-  icon: string;
+  icon: any;
   url: string;
 }

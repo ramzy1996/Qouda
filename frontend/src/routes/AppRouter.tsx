@@ -5,11 +5,11 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import RootLayout from '@/components/Molecules/Layout/RootLayout';
 import Loading from '@/components/Molecules/Loading/Loading';
 import NotFound from '@/components/Molecules/NotFound/NotFound';
-import { Provider } from '@/components/ui/provider';
 import { Toaster } from '@/components/ui/toaster';
 
 import { routes } from './routes';
 
+import '@/index.scss';
 const createAppRouter = () => {
   return createBrowserRouter([
     {
@@ -31,10 +31,8 @@ export const AppRouter = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <Suspense fallback={<Loading />}>
-        <Provider>
-          <RouterProvider router={router} />
-          <Toaster />
-        </Provider>
+        <RouterProvider router={router} />
+        <Toaster />
       </Suspense>
     </QueryClientProvider>
   );

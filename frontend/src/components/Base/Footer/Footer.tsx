@@ -1,5 +1,13 @@
 import { CSSProperties } from 'react';
 import { FaFacebookF, FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import {
+  Box,
+  HStack,
+  IconButton,
+  Link as ChakraLink,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 
 type FooterProps = {
   className?: string;
@@ -7,46 +15,54 @@ type FooterProps = {
 };
 
 const Footer = ({ className, style }: FooterProps) => {
-  const date = new Date();
-  const year = date.getFullYear();
+  const year = new Date().getFullYear();
+
+  const socialLinks = [
+    { href: 'https://web.facebook.com/Ramzyrox', Icon: FaFacebookF },
+    { href: 'https://www.instagram.com/ramzy_ahamed', Icon: FaInstagram },
+    { href: 'https://www.linkedin.com/in/ramzyahamed/', Icon: FaLinkedin },
+    { href: 'https://github.com/ramzy1996', Icon: FaGithub },
+  ];
+
   return (
-    <footer
-      className={`bg-neutral-900 text-center text-secondaryColor w-full relative ${className}`}
+    <Box
+      as="footer"
+      bg="gray.800"
+      textAlign="center"
+      color="secondaryColor"
+      width="full"
+      position="relative"
+      className={className}
       style={style}
     >
-      <div className="px-6 pt-6 w-full">
-        <div className="mb-6 flex justify-center">
-          {[
-            { href: 'https://web.facebook.com/Ramzyrox', Icon: FaFacebookF },
-            {
-              href: 'https://www.instagram.com/ramzy_ahamed',
-              Icon: FaInstagram,
-            },
-            {
-              href: 'https://www.linkedin.com/in/ramzyahamed/',
-              Icon: FaLinkedin,
-            },
-            { href: 'https://github.com/ramzy1996', Icon: FaGithub },
-          ].map(({ href, Icon }, index) => (
-            <a
-              key={index}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="m-1 h-9 w-9 flex items-center justify-center rounded-full border-2 border-secondaryColor transition duration-150 ease-in-out hover:bg-black focus:outline-none"
-            >
-              <Icon className="mx-auto h-5 w-5" />
-            </a>
+      <VStack gap={6} px={6} pt={6} width="full">
+        <HStack gap={4} justify="center">
+          {socialLinks.map(({ href, Icon }, index) => (
+            <ChakraLink href={href} target="_blank" key={index}>
+              <IconButton
+                variant="outline"
+                colorScheme="whiteAlpha"
+                borderRadius="full"
+                size="md"
+                borderColor="secondaryColor"
+                color="secondaryColor"
+                _hover={{
+                  bg: 'black',
+                  borderColor: 'white',
+                }}
+                aria-label={`${Icon.name} link`}
+              >
+                <Icon />
+              </IconButton>
+            </ChakraLink>
           ))}
-        </div>
-      </div>
-      <div
-        className="p-4 text-center"
-        style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}
-      >
-        © {year} Copyright: Ramzy Ahmed
-      </div>
-    </footer>
+        </HStack>
+      </VStack>
+
+      <Box p={4} textAlign="center" bg="rgba(0, 0, 0, 0.2)">
+        <Text>© {year} Copyright: Ramzy Ahmed</Text>
+      </Box>
+    </Box>
   );
 };
 

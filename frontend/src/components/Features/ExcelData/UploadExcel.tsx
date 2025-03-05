@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FiDownloadCloud } from 'react-icons/fi';
 import { IoSaveOutline } from 'react-icons/io5';
-import { Button, HStack } from '@chakra-ui/react';
+import { Box, Button, HStack } from '@chakra-ui/react';
 import saveAs from 'file-saver';
 import * as XLSX from 'xlsx';
 
@@ -74,9 +74,7 @@ const UploadExcel: React.FC = () => {
   };
 
   return (
-    <div className="w-full">
-      {/* <input type="file" onChange={handleFileChange} accept=".xlsx, .xls" /> */}
-
+    <Box width="full">
       <FileUploadRoot
         maxW="xl"
         alignItems="stretch"
@@ -88,41 +86,28 @@ const UploadExcel: React.FC = () => {
         <FileUploadDropzone
           label="Drag and drop here to upload"
           description=".xlsx, .xlx and .csv files are accepted"
-        ></FileUploadDropzone>
+        />
         <FileUploadList />
       </FileUploadRoot>
 
-      <div className="flex ">
-        <HStack className="m-5">
-          <Button
-            colorPalette="teal"
-            className="bg-blue-500 p-3 w-[200px]"
-            variant="solid"
-            loading={mutation.isPending}
-            onClick={handleSubmit}
-          >
-            <IoSaveOutline />
-            {mutation.isPending ? 'Uploading...' : 'Upload Excel'}
-          </Button>
-        </HStack>
+      <HStack gap={5} my={5}>
+        <Button
+          colorPalette="blue"
+          variant="solid"
+          loading={mutation.isPending}
+          onClick={handleSubmit}
+          loadingText="Uploading..."
+        >
+          <IoSaveOutline />
+          Upload
+        </Button>
 
-        <HStack className="m-5">
-          <Button
-            colorPalette="teal"
-            className="bg-gray-500 p-3 w-[200px]"
-            variant="solid"
-            onClick={handleDownload}
-          >
-            <FiDownloadCloud />
-            Download Template
-          </Button>
-        </HStack>
-      </div>
-
-      {/* <button type="submit" disabled={mutation.isPending}>
-        {mutation.isPending ? 'Uploading...' : 'Upload Excel'}
-      </button> */}
-    </div>
+        <Button colorPalette="border" variant="solid" onClick={handleDownload}>
+          <FiDownloadCloud />
+          Download Template
+        </Button>
+      </HStack>
+    </Box>
   );
 };
 

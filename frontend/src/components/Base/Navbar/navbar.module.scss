@@ -27,6 +27,14 @@
     }
 }
 
+.routerLink{
+    font-family: "poppins", sans-serif;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    font-weight: normal;
+}
+
 .activeLink {
     &::after {
         content: '';
