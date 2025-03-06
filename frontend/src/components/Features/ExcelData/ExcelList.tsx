@@ -8,6 +8,7 @@ import {
   Table,
 } from '@chakra-ui/react';
 
+import Loading from '@/components/Molecules/Loading/Loading';
 import {
   PaginationItems,
   PaginationNextTrigger,
@@ -33,7 +34,7 @@ const ExcelList = () => {
   const [pagination, setPagination] =
     React.useState<TPaginationQueryParams>(initialParams);
 
-  const { data, refetch } = useFetchExcelList({
+  const { data, refetch, isLoading } = useFetchExcelList({
     params: pagination,
   });
 
@@ -69,7 +70,7 @@ const ExcelList = () => {
   return (
     <Stack width="full" gap="5">
       <Heading size="xl">Excel Data</Heading>
-      <Table.ScrollArea borderWidth="1px" rounded="md" height="200px">
+      <Table.ScrollArea borderWidth="1px" rounded="md" height="250px">
         <Table.Root size="sm" stickyHeader interactive>
           <Table.Header>
             <Table.Row>
@@ -81,15 +82,26 @@ const ExcelList = () => {
               </Table.ColumnHeader>
             </Table.Row>
           </Table.Header>
-          <Table.Body colorPalette="gray">
-            {excelData.items.map((item) => (
-              <Table.Row key={item.id}>
-                <Table.Cell>{item.firstName}</Table.Cell>
-                <Table.Cell>{item.lastName}</Table.Cell>
-                <Table.Cell>{item.email}</Table.Cell>
-                <Table.Cell textAlign="end">{item.phoneNumber}</Table.Cell>
+
+          <Table.Body>
+            {isLoading ? (
+              <Table.Row backgroundColor="gray.800">
+                <Table.Cell colSpan={4}>
+                  <Flex width="full" justifyContent="center">
+                    <Loading />
+                  </Flex>
+                </Table.Cell>
               </Table.Row>
-            ))}
+            ) : (
+              excelData.items.map((item) => (
+                <Table.Row key={item.id} backgroundColor="gray.800">
+                  <Table.Cell>{item.firstName}</Table.Cell>
+                  <Table.Cell>{item.lastName}</Table.Cell>
+                  <Table.Cell>{item.email}</Table.Cell>
+                  <Table.Cell textAlign="end">{item.phoneNumber}</Table.Cell>
+                </Table.Row>
+              ))
+            )}
           </Table.Body>
         </Table.Root>
       </Table.ScrollArea>
