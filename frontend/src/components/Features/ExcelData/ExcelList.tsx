@@ -72,7 +72,7 @@ const ExcelList = () => {
       <Heading size="xl">Excel Data</Heading>
       <Table.ScrollArea borderWidth="1px" rounded="md" height="250px">
         <Table.Root size="sm" stickyHeader interactive>
-          <Table.Header>
+          <Table.Header height="60px">
             <Table.Row>
               <Table.ColumnHeader>First Name</Table.ColumnHeader>
               <Table.ColumnHeader>Last Name</Table.ColumnHeader>
@@ -94,7 +94,12 @@ const ExcelList = () => {
               </Table.Row>
             ) : (
               excelData.items.map((item) => (
-                <Table.Row key={item.id} backgroundColor="gray.800">
+                <Table.Row
+                  key={item.id}
+                  backgroundColor="gray.300"
+                  color="black"
+                  height="40px"
+                >
                   <Table.Cell>{item.firstName}</Table.Cell>
                   <Table.Cell>{item.lastName}</Table.Cell>
                   <Table.Cell>{item.email}</Table.Cell>
