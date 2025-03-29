@@ -49,7 +49,6 @@ const ExcelList = () => {
     totalCount: 0,
     totalPages: 0,
   };
-  console.log(excelData);
 
   const handlePageChange = (pageNumber: number) => {
     setPagination((prevPagination) => ({ ...prevPagination, pageNumber }));
@@ -118,7 +117,6 @@ const ExcelList = () => {
           defaultPage={1}
           variant="solid"
           onPageChange={(info) => {
-            console.log(info);
             setPagination((prevPagination) => ({
               ...prevPagination,
               pageNumber: info.page,
@@ -152,7 +150,6 @@ const ExcelList = () => {
           width="50px"
           defaultValue={[pageSizes.items[0].value.toString()]}
           onValueChange={(e: any) => {
-            console.log(e);
             handlePageSizeChange(parseInt(e.value));
           }}
         >

@@ -7,6 +7,7 @@ const apiClient: AxiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  responseType: 'json', // default response type
 });
 
 apiClient.interceptors.request.use(
@@ -19,11 +20,16 @@ apiClient.interceptors.request.use(
 );
 
 apiClient.interceptors.response.use(
-  (response: AxiosResponse<ResponseWrapper<any>>) => {
-    if (!response.data.success) {
-      throw new Error(response.data.message);
+  (response: AxiosResponse) => {
+    if (response.config.responseType === 'json') {
+      const data = response.data as ResponseWrapper<any>;
+      if (!data.success) {
+        throw new Error(data.message);
+      }
+      return response;
+    } else {
+      return response;
     }
-    return response;
   },
   (error) => {
     return Promise.reject(error);

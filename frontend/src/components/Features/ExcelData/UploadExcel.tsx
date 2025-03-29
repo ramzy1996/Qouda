@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { FiDownloadCloud } from 'react-icons/fi';
+import { FaCloudDownloadAlt } from 'react-icons/fa';
 import { IoSaveOutline } from 'react-icons/io5';
 import { Box, Button, HStack } from '@chakra-ui/react';
 import saveAs from 'file-saver';
 import * as XLSX from 'xlsx';
 
+import { DownloadExcelButton } from '@/components/Molecules/DownloadExcelButton/DownloadExcelButton';
 import {
   FileUploadDropzone,
   FileUploadList,
@@ -103,9 +104,10 @@ const UploadExcel: React.FC = () => {
         </Button>
 
         <Button colorPalette="border" variant="solid" onClick={handleDownload}>
-          <FiDownloadCloud />
+          <FaCloudDownloadAlt />
           Download Template
         </Button>
+        <DownloadExcelButton />
       </HStack>
     </Box>
   );

@@ -31,4 +31,11 @@ async function fetchExcelList(
   return response.data.data; // Extract the nested data
 }
 
-export { fetchExcelList, uploadExcel };
+async function fetchExcelDownload() {
+  const response = await apiClient.get('exceldata/download', {
+    responseType: 'blob',
+  });
+  return response.data;
+}
+
+export { fetchExcelDownload, fetchExcelList, uploadExcel };

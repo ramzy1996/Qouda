@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using QoudaApp.Application.Features.Commands.ExcelData;
 using QoudaApp.Application.Features.Queries.ExcelData;
 using QoudaApp.Shared.Helpers;
+using System.IO;
 
 namespace QoudaApp.API.Controllers.ExcelData;
 
@@ -23,5 +24,16 @@ public class ExcelDataController(ISender mediator) : ControllerBase
         var query = new GetExcelDataQuery(payload);
         var excelData = await mediator.Send(query);
         return Ok(excelData);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Download()
+    {
+        var query = new DownloadExcelQuery();
+        var response = await mediator.Send(query);
+        Response.Headers.Append("Content-Disposition", $"attachment; filename=ExcelData.xlsx");
+        Response.Headers.Append("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+
+        return File(response, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "ExcelData.xlsx");
     }
 }
